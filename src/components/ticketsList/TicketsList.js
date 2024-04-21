@@ -19,25 +19,24 @@ function TicketsList() {
     dispatch(fetchTickets());
   }, []);
 
-  let errorAlert = null;
-  if (isError) {
-    errorAlert = <Alert message="Ошибка загрузки билетов" type="error" style={{ marginBottom: 10 }} />;
-  }
-
   const sortData = (arr) => {
     switch (sortOption) {
       case 'low-rate': {
-        return [...arr].sort((a, b) => a.price - b.price);
+        return [...arr].sort((arr1, arr2) => arr1.price - arr2.price);
       }
       case 'optimal': {
-        return [...arr].sort((a, b) => {
-          if (a.carrier === 'DP' && a.carrier === 'DP') {
-            return +1;
-          } else return -1;
+        return [...arr].sort((arr1, arr2) => {
+          if (arr1.carrier > arr2.carrier && arr1.carrier === 'FV') {
+            return 1;
+          }
+          if (arr1.carrier < arr2.carrier && arr1.carrier === 'FV') {
+            return -1;
+          }
+          return 0;
         });
       }
       case 'fast': {
-        return [...arr].sort((a, b) => a.segments[0].duration - b.segments[0].duration);
+        return [...arr].sort((arr1, arr2) => arr1.segments[0].duration - arr2.segments[0].duration);
       }
       default:
         return arr;
@@ -74,6 +73,12 @@ function TicketsList() {
     ticketsArr = finaleTickets.map((elem) => {
       return <Ticket key={elem.carrier + elem.prise + elem.segments[0].date} data={elem} />;
     });
+  }
+
+  let errorAlert = null;
+  if (isError) {
+    errorAlert = <Alert message="Ошибка загрузки билетов" type="error" style={{ marginBottom: 10 }} />;
+    ticketsArr = null;
   }
 
   return (
