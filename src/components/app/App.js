@@ -9,9 +9,9 @@ import TicketsList from '../ticketsList/TicketsList';
 function App() {
   return (
     <div className="container">
-      <Logo />
-      <Filter />
-      <div className="main__content">
+      <Logo className="logo" />
+      <Filter className="filter" />
+      <div className="main">
         <Menu />
         <TicketsList />
       </div>
