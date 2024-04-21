@@ -1,0 +1,42 @@
+.filter {
+    top: 128px;
+    min-width: 232px;
+    max-height: 248px;
+
+    grid-area: 2;
+    position: sticky;
+    
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    &__title {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 10px 0px 0px 15px;
+        margin: 0;
+        color: #4A4A4A;
+    }
+
+    &__label {
+        display: flex;
+        padding: 10px 15px;
+    }
+
+    &__label:hover {
+        cursor: pointer;
+        background: #F1FCFF;
+    }
+
+    &__checkbox {
+        display: none;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter {
+        max-height: none;
+        position: static;
+    }
+}

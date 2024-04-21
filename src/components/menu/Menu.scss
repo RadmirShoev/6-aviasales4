@@ -1,0 +1,38 @@
+.menu {
+    margin-bottom: 20px;
+    min-width: 500px;
+    min-height: 50px;
+
+    display: flex;
+
+    &__button {
+        padding: 10px 15px;
+        cursor: pointer;
+
+        flex: 1;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #DFE5EC;
+        border-radius: 0 5px 5px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        color: #4A4A4A;
+
+
+        &:hover {
+            background-color: #2196F3;
+            color: #fff;
+        }
+    }
+}
+
+.selected {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        flex-direction: column;
+        min-width: auto; 
+    }
+}
