@@ -28,22 +28,35 @@ export function addMoreTickets(num) {
 export function fetchTickets() {
   return async (dispatch) => {
     dispatch(fetchStart());
+    const ticketsArr = [];
+    let stop = false;
+    let response;
+    const idResponse = await fetch('https://aviasales-test-api.kata.academy/search');
+    const idData = await idResponse.json();
+
+    const searchId = idData.searchId;
+
     try {
-      const idResponse = await fetch('https://aviasales-test-api.kata.academy/search');
-      const idData = await idResponse.json();
-
-      const searchId = idData.searchId;
-
-      const ticketsArr = [];
-
-      const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+      response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
       const data = await response.json();
+      stop = data.stop;
 
       ticketsArr.push(...data.tickets);
-
       dispatch(fetchSuccess(ticketsArr));
     } catch (error) {
       dispatch(fetchError(error));
     }
+
+    while (!stop) {
+      response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(ticketsArr);
+        stop = data.stop;
+
+        ticketsArr.push(...data.tickets);
+      }
+    }
+    dispatch(fetchSuccess(ticketsArr));
   };
 }
