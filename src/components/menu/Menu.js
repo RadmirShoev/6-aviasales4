@@ -7,25 +7,29 @@ import * as actions from '../../actions/actionSort';
 
 function Menu({ sortOption, setLowrate, setOptimal, setFast }) {
   return (
-    <div className="menu">
+    <ul className="menu">
       <button
         type="button"
-        className={`menu__button ${sortOption === 'low-rate' && 'selected'}`}
+        className={`menu__button menu__button--left  ${sortOption === 'low-rate' && 'selected'}`}
         onClick={() => setLowrate()}
       >
-        Самый дешевый
-      </button>
-      <button type="button" className={`menu__button ${sortOption === 'fast' && 'selected'}`} onClick={() => setFast()}>
-        Самый быстрый
+        САМЫЙ ДЕШЕВЫЙ
       </button>
       <button
         type="button"
-        className={`menu__button ${sortOption === 'optimal' && 'selected'}`}
+        className={`menu__button menu__button--center ${sortOption === 'fast' && 'selected'}`}
+        onClick={() => setFast()}
+      >
+        САМЫЙ БЫСТРЫЙ
+      </button>
+      <button
+        type="button"
+        className={`menu__button menu__button--right ${sortOption === 'optimal' && 'selected'}`}
         onClick={() => setOptimal()}
       >
-        Оптимальный
+        ОПТИМАЛЬНЫЙ
       </button>
-    </div>
+    </ul>
   );
 }
 

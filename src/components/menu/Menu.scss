@@ -4,6 +4,11 @@
     min-height: 50px;
 
     display: flex;
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 0;
+    
 
     &__button {
         padding: 10px 15px;
@@ -13,16 +18,28 @@
         text-align: center;
         background-color: #fff;
         border: 1px solid #DFE5EC;
-        border-radius: 0 5px 5px 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         color: #4A4A4A;
 
+        &--left {
+          border-radius: 7px 0 0 7px;
+        }
+        
+        &--center {
+          border: none;
+          border-top: 1px solid #DFE5EC;
+          border-bottom: 1px solid #DFE5EC;
+        }
+
+        &--right {
+          border-radius: 0 7px 7px 0;
+        }
 
         &:hover {
             background-color: #2196F3;
             color: #fff;
         }
     }
+    
 }
 
 .selected {
@@ -34,5 +51,10 @@
     .menu {
         flex-direction: column;
         min-width: auto; 
+
+        &__button {
+            border: 1px solid #DFE5EC;
+            border-radius: 7px; 
+        }
     }
 }

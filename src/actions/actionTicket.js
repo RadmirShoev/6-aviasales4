@@ -51,7 +51,6 @@ export function fetchTickets() {
       response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
       if (response.ok) {
         const data = await response.json();
-        console.log(ticketsArr);
         stop = data.stop;
 
         ticketsArr.push(...data.tickets);

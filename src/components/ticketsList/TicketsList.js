@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Spin, Alert } from 'antd';
 
+import { sortData, filterData } from '../../utils';
 import { fetchTickets, addMoreTickets } from '../../actions/actionTicket';
 import Ticket from '../ticket/Ticket';
 
@@ -11,61 +12,16 @@ function TicketsList() {
   const isError = useSelector((state) => state.tickets.error);
   const data = useSelector((state) => state.tickets.data);
   const ticketsNum = useSelector((state) => state.tickets.ticketsNum);
-  const filters = useSelector((state) => state.filters);
   const sortOption = useSelector((state) => state.sorts.sortOption);
   const messageNotFind = 'Рейсов, подходящих под заданные фильтры, не найдено';
+  const filters = useSelector((state) => state.filters);
 
   useEffect(() => {
     dispatch(fetchTickets());
   }, []);
 
-  const sortData = (arr) => {
-    switch (sortOption) {
-      case 'low-rate': {
-        return [...arr].sort((arr1, arr2) => arr1.price - arr2.price);
-      }
-      case 'optimal': {
-        return [...arr].sort((arr1, arr2) => {
-          if (arr1.carrier > arr2.carrier && arr1.carrier === 'FV') {
-            return 1;
-          }
-          if (arr1.carrier < arr2.carrier && arr1.carrier === 'FV') {
-            return -1;
-          }
-          return 0;
-        });
-      }
-      case 'fast': {
-        return [...arr].sort((arr1, arr2) => arr1.segments[0].duration - arr2.segments[0].duration);
-      }
-      default:
-        return arr;
-    }
-  };
-
-  const filterData = (arr) => {
-    if (filters.all) {
-      return arr;
-    }
-    return arr.filter((ticket) => {
-      if (filters.none && ticket.segments[0].stops.length === 0 && ticket.segments[1].stops.length === 0) {
-        return true;
-      }
-      if (filters.one && ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) {
-        return true;
-      }
-      if (filters.two && ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) {
-        return true;
-      }
-      if (filters.three && ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) {
-        return true;
-      }
-      return false;
-    });
-  };
-
   let ticketsArr;
-  const finaleTickets = sortData(filterData(data)).slice(0, ticketsNum);
+  const finaleTickets = sortData(filterData(data, filters), sortOption).slice(0, ticketsNum);
 
   if (!finaleTickets.length) {
     ticketsArr = <Alert message={messageNotFind} type="info" style={{ marginBottom: 15 }} />;

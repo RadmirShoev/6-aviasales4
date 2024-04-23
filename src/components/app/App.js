@@ -11,10 +11,10 @@ function App() {
     <div className="container">
       <Logo className="logo" />
       <Filter className="filter" />
-      <div className="main">
+      <main className="main">
         <Menu />
         <TicketsList />
-      </div>
+      </main>
     </div>
   );
 }

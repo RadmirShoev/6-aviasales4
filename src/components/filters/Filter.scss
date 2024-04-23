@@ -1,7 +1,9 @@
 .filter {
+    font-family: 'open sans';
     top: 128px;
     min-width: 232px;
     max-height: 248px;
+    
 
     grid-area: 2;
     position: sticky;
@@ -11,7 +13,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     
     &__title {
-        font-size: 16px;
+        font-size: 12px;
         font-weight: 600;
         padding: 10px 0px 0px 15px;
         margin: 0;
@@ -21,6 +23,7 @@
     &__label {
         display: flex;
         padding: 10px 15px;
+        color: #4A4A4A;
     }
 
     &__label:hover {
@@ -30,7 +33,38 @@
 
     &__checkbox {
         display: none;
-        margin-right: 10px;
+    }
+    &__checkbox:checked + span:before {
+        /* <-- ставим иконку, когда чекбокс включен  */
+        content: url('../../icons/checkbox.svg');
+        background-size: contain; /* Размер изображения */
+        position: relative;
+        right: 1px;
+        bottom: 1px;
+    }
+
+    .new-checkbox {
+        height: 18px;
+        width: 18px;
+        border: 1px solid #9abbce;
+        display: inline-block;
+        position: relative;
+        background-color: #fff;
+        border-radius: 2px;
+        padding: 0px;
+    }
+    .checkbox:checked + span:before {
+        /* <-- ставим иконку, когда чекбокс включен  */
+        content: url('../../icons/checkbox.svg');
+        background-size: contain; /* Размер изображения */
+        position: relative;
+        right: 1px;
+        bottom: 1px;
+      }
+    .checkbox-text {
+        font-size: 13px;
+        margin-left: 5px;
+        margin-top: 3px;
     }
 }
 
